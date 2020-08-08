@@ -1,4 +1,4 @@
-IMPOERTANT!!!
+IMPORTANT!!!
 
 1. download or clone code
 2. make a database 'webartikel'
