@@ -8,16 +8,17 @@
     <div class="row">
         <div class="col-md-4 mt-3">
             <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <a href="/1">
-                        <h5 class="card-title">{{$home->title}}</h5>
-                    </a>
-                    <p class="card-text" style="width: 300px">{{$home->content}}</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">{{$home->published_at}}</small>
-                </div>
+                <img src="{{asset('media/'.$home->image)}}" class="card-img-top" alt="...">
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Published at {{$home->published_at}}</small>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card-body">
+                <h2 class="card-title">{{$home->title}}</h2>
+                <p class="card-text" style="width: 300px">{{$home->content}}</p>
             </div>
         </div>
     </div>

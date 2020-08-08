@@ -1,64 +1,69 @@
-@extends('layout.main')
+@extends('layout.dashboard')
 
-@section('title','Create Artikel')
+@section('titledash','Create Artikel')
 
-@section('container')
-<div class="container">
+@section('body')
+
+<div class="main-content-inner">
     <div class="row">
-        <div class="col-8">
-            <h1 class="mt-3">Create Artikel</h1>
-            <form class="mt-3" method="POST" action="{{url('dashboard')}}" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control @error('title') is-invalid @enderror " id="title"
-                name="title" placeholder="Input Title" value="{{ old('title') }}">
-                    @error('title')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="author">Author</label>
-                    <input type="text" class="form-control @error('author') is-invalid @enderror " id="author"
-                name="author" placeholder="Input Author" value="{{ old('author') }}">
-                    @error('author')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="content">Content</label>
-                    <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" rows="5"
-                        placeholder="Input Content">{{ old('content') }}</textarea>
-                    @error('content')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                <label for="image">Image</label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+        <div class="col-lg-6 col-ml-12">
+            <div class="row">
+                <!-- Textual inputs start -->
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                        <h4 class="header-title">Add Artikel</h4>
+                            <form method="post" action="{{url('dashboard')}}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-form-label">Title</label>
+                                    <input class="form-control @error('title') is-invalid @enderror" type="text" name="title" value="{{ old('title') }}" id="example-text-input">
+                                @error('title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-search-input" class="col-form-label">Author</label>
+                                    <input class="form-control @error('author') is-invalid @enderror" type="text" name="author" value="{{ old('author') }}" id="example-search-input">
+                                @error('author')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-search-input" class="col-form-label">Content</label>
+                                    <textarea class="form-control @error('content') is-invalid @enderror" aria-label="With textarea" name="content" cols="30" rows="10">{{ old('content') }}</textarea>
+                                @error('author')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-search-input" class="col-form-label">Image</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input @error('image') is-invalid @enderror" name="image" id="customFile" value="{{ old('image') }}">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-search-input" class="col-form-label">Published at</label>
+                                    <input class="form-control @error('published_at') is-invalid @enderror" type="date" name="published_at" value="{{ old('published_at') }}" id="example-text-input">
+                                @error('published_at')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <button name="draft" type="submit" class="btn btn-warning">Draft</button>
+                                <button type="submit" class="btn btn-primary">Publish</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input @error('image') is-invalid @enderror" name="image" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                    </div>
-                    @error('image')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                  </div>
                 </div>
-                <div class="form-group">
-                    <label for="published_at">Published at</label>
-                    <input type="date" class="form-control @error('published_at') is-invalid @enderror" name="published_at" id="published_at" placeholder="" value="{{ old('published_at') }}">
-                    @error('published_at')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <button name="draft" type="submit" class="btn btn-warning">Draft</button>
-                <button type="submit" class="btn btn-primary">Publish</button>
-            </form>
+
+            </div>
         </div>
     </div>
 </div>
+</div>
+
 @endsection

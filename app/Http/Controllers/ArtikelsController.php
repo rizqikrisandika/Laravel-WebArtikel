@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Artikel;
 use Illuminate\Http\Request;
+use Auth;
 
 class ArtikelsController extends Controller
 {
@@ -59,6 +60,8 @@ class ArtikelsController extends Controller
         $request->file('image')->move("media/",$nama_file);
 
         $artikel->image = $nama_file;
+
+        $artikel->created_by = Auth::id();
 
         if($request->has('draft')){
             $status = 'draft';
