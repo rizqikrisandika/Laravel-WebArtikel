@@ -41,15 +41,38 @@ class ArtikelsController extends Controller
 
         $request->validate([
             'title' => 'required|max:30',
+            'author' => 'required',
             'content' => 'required',
-            'file' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
-            'published_at' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'published_at' => 'required'
         ]);
 
-        // $file = $request->file('image');
-        // $nama_file = time()."_".$file->getClientOriginalName();
-        // $tujuan_upload = 'public/media/';
-        // $file->move($tujuan_upload,$nama_file);
+
+        $artikel = new Artikel();
+
+        $artikel->title = $request->title;
+        $artikel->author = $request->author;
+        $artikel->content = $request->content;
+
+        $file = $request->file('image');
+        $nama_file = time()."_".$file->getClientOriginalName();
+        $request->file('image')->move("media/",$nama_file);
+
+        $artikel->image = $nama_file;
+
+        if($request->has('draft')){
+            $status = 'draft';
+        }else{
+            $status = 'published';
+        }
+
+        $artikel->status = $status;
+        $artikel->published_at = $request->published_at;
+        $artikel->save();
+
+        return redirect('/dashboard')->with('status', 'Add Artikel Success');
+
+        
 
         // Artikel::create([
         //     'title' => $request->title,
@@ -58,9 +81,8 @@ class ArtikelsController extends Controller
         //     'published_at' => $request->published_at
         // ]);
 
-        Artikel::create($request->all());
+        // Artikel::create($request->all());
 
-        return redirect('/dashboard')->with('status', 'Add Artikel Success');
     }
 
     /**
@@ -94,20 +116,47 @@ class ArtikelsController extends Controller
      */
     public function update(Request $request, Artikel $artikel)
     {
-        $artikel->validate([
+        $request->validate([
             'title' => 'required|max:30',
+            'author' => 'required',
             'content' => 'required',
-            'published_at' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'published_at' => 'required'
         ]);
 
-        Artikel::where('id', $artikel->id)->update([
-            'title' => $request->title,
-            'content' => $request->content,
-            'published_at' => $request->published_at
-        ]);
+        $update = Artikel::find($artikel->id);
 
+        $update->title = $request->title;
+        $update->author = $request->author;
+        $update->content = $request->content;
+
+        if($request->hasfile('image')){
+            $file = $request->file('image');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $file->move("media/",$nama_file);
+
+            $update->image = $nama_file;
+        }
+
+        if($request->has('draft')){
+            $status = 'draft';
+        }else{
+            $status = 'published';
+        }
+        $update->status = $status;
+        $update->published_at = $request->published_at;
+
+        $update->save();
         return redirect('/dashboard')->with('status', 'Update Artikel Success');
+
+        // Artikel::where('id', $artikel->id)->update([
+        //     'title' => $request->title,
+        //     'content' => $request->content,
+        //     'published_at' => $request->published_at
+        // ]);
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -117,6 +166,9 @@ class ArtikelsController extends Controller
      */
     public function destroy(Artikel $artikel)
     {
+        // $image = Artikel::where($artikel->id);
+        // File::delete('media/'.$artikel->image);
+
         Artikel::destroy($artikel->id);
 
         return redirect('/dashboard')->with('status', 'Delete Artikel Success');

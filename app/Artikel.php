@@ -9,5 +9,5 @@ class Artikel extends Model
 {
     use SoftDeletes;
     
-    protected $fillable = ['title','author','content','published_at'];
+    protected $fillable = ['title','author','image','content','published_at'];
 }

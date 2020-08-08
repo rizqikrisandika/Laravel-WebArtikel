@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','HomesController@index');
 
 Route::get('/dashboard','ArtikelsController@index');
-Route::get('/dashboard/create','ArtikelsController@create');
+Route::get('/dashboard/create','ArtikelsController@create')->name('create.artikel');
 
 Route::get('/{home}','HomesController@show');
 

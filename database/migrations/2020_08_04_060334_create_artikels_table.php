@@ -20,6 +20,7 @@ class CreateArtikelsTable extends Migration
             $table->Text('content');
             $table->string('image');
             $table->bigInteger('created_by')->nullable();
+            $table->string('status');
             $table->date('published_at');
             $table->timestamps();
             $table->softDeletes();
