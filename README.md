@@ -1,3 +1,5 @@
+IMPOERTANT!!!
+
 1. download or clone code
 2. make a database 'webartikel'
 3. open cmd and run 'php artisan migrate'
