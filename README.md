@@ -1,7 +1,7 @@
 IMPORTANT!!!
 
 1. download or clone code
-2. make a database 'webartikel'
+2. make a database 'webartikel' and edit .env
 3. open cmd and run 'php artisan migrate'
 4. then run 'php artisan db:seed --class=AdminSeeder' for make default admin dashboard
 5. run 'php artisan serve'
